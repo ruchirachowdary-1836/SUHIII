@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-blush-50 text-cocoa font-sans antialiased;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(255, 194, 212, 0.55), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(255, 219, 230, 0.7), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(255, 159, 188, 0.25), transparent 50%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: #ffc2d4;
+  color: #8f0f31;
+}
+
+/* ---------- diary page ---------- */
+.diary-page {
+  @apply relative mx-auto w-full max-w-6xl rounded-[2rem] px-5 py-14 sm:px-10 sm:py-20;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 250, 252, 0.85)),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(245, 122, 160, 0.08) 31px 32px);
+  box-shadow: 0 30px 80px -40px rgba(194, 58, 99, 0.45), inset 0 0 0 1px rgba(255, 159, 188, 0.35);
+}
+
+/* scalloped lace edges */
+.lace-top,
+.lace-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  pointer-events: none;
+}
+.lace-top {
+  top: -13px;
+  background:
+    radial-gradient(circle at 12px 14px, #fff 9px, transparent 10px) repeat-x,
+    radial-gradient(circle at 12px 14px, transparent 3px, transparent 4px);
+  background-size: 24px 14px;
+  filter: drop-shadow(0 -2px 2px rgba(224, 85, 127, 0.15));
+}
+.lace-bottom {
+  bottom: -13px;
+  background: radial-gradient(circle at 12px 0, #fff 9px, transparent 10px) repeat-x;
+  background-size: 24px 14px;
+  filter: drop-shadow(0 3px 2px rgba(224, 85, 127, 0.15));
+}
+
+/* little lace holes along an edge */
+.lace-holes {
+  background-image: radial-gradient(circle, rgba(245, 122, 160, 0.35) 2px, transparent 2.5px);
+  background-size: 14px 14px;
+}
+
+/* gingham, for washi tape and cards */
+.gingham {
+  background-color: #ffdbe6;
+  background-image:
+    linear-gradient(90deg, rgba(245, 122, 160, 0.35) 50%, transparent 50%),
+    linear-gradient(rgba(245, 122, 160, 0.35) 50%, transparent 50%);
+  background-size: 10px 10px;
+}
+
+.washi {
+  @apply absolute h-6 w-24 opacity-90;
+  background-color: rgba(255, 194, 212, 0.85);
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.5) 0 4px, transparent 4px 8px);
+  box-shadow: 0 1px 3px rgba(90, 42, 58, 0.15);
+}
+
+.pearl {
+  background: radial-gradient(circle at 32% 30%, #fff 0 18%, #fff4f7 30%, #f7d6e0 70%, #e9b3c4 100%);
+  box-shadow: 0 1px 2px rgba(90, 42, 58, 0.25), inset -1px -1px 2px rgba(194, 58, 99, 0.15);
+  border-radius: 9999px;
+}
+
+.text-shimmer {
+  background: linear-gradient(100deg, #c23a63 0%, #f57aa0 30%, #ffc2d4 50%, #f57aa0 70%, #c23a63 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* ---------- ambient floaters ---------- */
+@keyframes fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(var(--spin, 360deg));
+    opacity: 0;
+  }
+}
+@keyframes rise {
+  0% {
+    transform: translate3d(0, 10vh, 0) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(var(--drift, -30px), -110vh, 0) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.floater-fall {
+  animation: fall var(--dur, 14s) linear var(--delay, 0s) infinite;
+}
+.floater-rise {
+  animation: rise var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+.twinkle {
+  animation: twinkle var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* candle flame */
+@keyframes flicker {
+  0%,
+  100% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  25% {
+    transform: scale(0.92, 1.08) rotate(2deg);
+  }
+  50% {
+    transform: scale(1.05, 0.95) rotate(-1deg);
+  }
+  75% {
+    transform: scale(0.96, 1.06) rotate(1.5deg);
+  }
+}
+.flame {
+  transform-origin: 50% 100%;
+  animation: flicker 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floater-fall,
+  .floater-rise,
+  .twinkle,
+  .flame,
+  .text-shimmer {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* letter paper */
+.letter-paper {
+  background-color: #fffaf8;
+  background-image:
+    linear-gradient(90deg, transparent 38px, rgba(214, 33, 79, 0.18) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(245, 122, 160, 0.22) 39px 40px);
+}
+@media (min-width: 640px) {
+  .letter-paper {
+    background-image:
+      linear-gradient(90deg, transparent 64px, rgba(214, 33, 79, 0.18) 64px 65px, transparent 65px),
+      repeating-linear-gradient(0deg, transparent 0 43px, rgba(245, 122, 160, 0.22) 43px 44px);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
